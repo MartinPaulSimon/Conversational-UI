@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Candidate {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  skills      String[] // PostgreSQL array
+  experience  Int
+  location    String
+  domain      String
+  company     String?
+  education   String?
+
+  // Ranking factors
+  skillScore      Float @default(0)
+  roleScore       Float @default(0)
+  experienceScore Float @default(0)
+  domainScore     Float @default(0)
+  trajectoryScore Float @default(0)
+  referralScore   Float @default(0)
+  riskScore       Float @default(0)
+
+  // Reasoning
+  reasoning   String[] // Array of explanation strings
+
+  // Embedding (stored as float array for local vector search)
+  embedding   Float[] @default([])
+
+  // Resume text for embedding
+  resumeText  String? @db.Text
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([domain])
+  @@index([experience])
+  @@index([location])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  
+  // Filters
+  filterSkills        String[] @default([])
+  filterExperienceMin Int?
+  filterExperienceMax Int?
+  filterLocation      String?
+  filterDomain        String?
+  filterRole          String?
+
+  // Context
+  semanticIntent      String?
+  excludedCandidates  String[] @default([])
+  rankingPreferences  String[] @default([])
+
+  // JD
+  jdRole              String?
+  jdSkills            String[] @default([])
+  jdExperience        String?
+  jdDomain            String?
+  jdResponsibilities  String[] @default([])
+
+  messages  Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String   // 'user' | 'ai'
+  content   String   @db.Text
+  
+  // AI response metadata
+  candidateIds String[] @default([])
+  suggestions  String[] @default([])
+
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}

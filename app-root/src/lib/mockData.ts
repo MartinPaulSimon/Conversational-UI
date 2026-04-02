@@ -1,0 +1,318 @@
+import { RankedCandidate } from './ranking';
+
+// 15 realistic mock candidates for demo
+export const MOCK_CANDIDATES: RankedCandidate[] = [
+  {
+    id: '1',
+    name: 'Arjun Patel',
+    role: 'Senior Full Stack Developer',
+    skills: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS', 'GraphQL'],
+    experience: 7,
+    location: 'Bangalore, India',
+    domain: 'FinTech',
+    company: 'Razorpay',
+    education: 'IIT Bombay - B.Tech CS',
+    factors: { skill: 92, role: 88, experience: 85, domain: 80, trajectory: 90, referral: 60, risk: 10 },
+    finalScore: 0,
+    reasoning: [
+      'Strong alignment with React/Node.js stack — 5+ years production experience',
+      'FinTech domain expertise with payment systems at Razorpay',
+      'Consistent career growth from Mid to Senior in 3 years',
+      'IIT Bombay alumnus with strong engineering foundation',
+    ],
+  },
+  {
+    id: '2',
+    name: 'Sarah Chen',
+    role: 'Staff Engineer',
+    skills: ['Python', 'Machine Learning', 'TensorFlow', 'Kubernetes', 'Go', 'System Design'],
+    experience: 10,
+    location: 'San Francisco, USA',
+    domain: 'AI/ML',
+    company: 'Google',
+    education: 'Stanford - MS Computer Science',
+    factors: { skill: 95, role: 92, experience: 90, domain: 95, trajectory: 95, referral: 80, risk: 5 },
+    finalScore: 0,
+    reasoning: [
+      'Deep ML expertise with production-scale TensorFlow deployments',
+      'Staff-level at Google with demonstrated leadership in AI initiatives',
+      'Stanford MS with published research in NLP',
+      'Strong referral from existing team member',
+    ],
+  },
+  {
+    id: '3',
+    name: 'Priya Sharma',
+    role: 'Frontend Engineer',
+    skills: ['React', 'TypeScript', 'Next.js', 'CSS', 'Figma', 'Testing'],
+    experience: 4,
+    location: 'Mumbai, India',
+    domain: 'E-commerce',
+    company: 'Flipkart',
+    education: 'BITS Pilani - B.Tech',
+    factors: { skill: 88, role: 82, experience: 70, domain: 75, trajectory: 85, referral: 40, risk: 15 },
+    finalScore: 0,
+    reasoning: [
+      'Expert-level React/Next.js proficiency matching core stack requirements',
+      'E-commerce scale experience handling millions of users at Flipkart',
+      'Strong design sensibility with Figma skills for cross-functional work',
+      'Rapid career progression — promoted twice in 4 years',
+    ],
+  },
+  {
+    id: '4',
+    name: 'James Wilson',
+    role: 'DevOps Lead',
+    skills: ['AWS', 'Terraform', 'Docker', 'Kubernetes', 'CI/CD', 'Python'],
+    experience: 8,
+    location: 'London, UK',
+    domain: 'Healthcare',
+    company: 'DeepMind Health',
+    education: 'Oxford - MEng',
+    factors: { skill: 85, role: 80, experience: 88, domain: 70, trajectory: 82, referral: 50, risk: 12 },
+    finalScore: 0,
+    reasoning: [
+      'Extensive AWS/K8s infrastructure experience at scale',
+      'Healthcare compliance experience (HIPAA, GDPR) — valuable for regulated environments',
+      'Led DevOps transformation reducing deployment time by 80%',
+      'Strong leadership — manages team of 6 engineers',
+    ],
+  },
+  {
+    id: '5',
+    name: 'Kavitha Reddy',
+    role: 'Data Engineer',
+    skills: ['Python', 'Spark', 'Airflow', 'SQL', 'Kafka', 'dbt'],
+    experience: 5,
+    location: 'Hyderabad, India',
+    domain: 'Analytics',
+    company: 'Myntra',
+    education: 'NIT Warangal - B.Tech',
+    factors: { skill: 82, role: 78, experience: 75, domain: 72, trajectory: 80, referral: 30, risk: 8 },
+    finalScore: 0,
+    reasoning: [
+      'Solid data pipeline expertise with Spark and Airflow in production',
+      'Built real-time analytics pipelines processing 10M+ events/day',
+      'Strong SQL foundation with dbt for data transformation',
+      'Consistent contributor to open-source data tools',
+    ],
+  },
+  {
+    id: '6',
+    name: 'Michael Torres',
+    role: 'Backend Engineer',
+    skills: ['Java', 'Spring Boot', 'Microservices', 'PostgreSQL', 'Redis', 'RabbitMQ'],
+    experience: 6,
+    location: 'New York, USA',
+    domain: 'Banking',
+    company: 'Goldman Sachs',
+    education: 'Columbia - BS CS',
+    factors: { skill: 86, role: 84, experience: 80, domain: 88, trajectory: 78, referral: 70, risk: 10 },
+    finalScore: 0,
+    reasoning: [
+      'Enterprise Java/Spring Boot expertise at Goldman Sachs',
+      'Deep banking domain knowledge with regulatory compliance experience',
+      'Microservices architecture experience handling high-throughput systems',
+      'Strong referral from VP-level hiring manager',
+    ],
+  },
+  {
+    id: '7',
+    name: 'Ananya Gupta',
+    role: 'Product Designer',
+    skills: ['Figma', 'UI/UX', 'Design Systems', 'Prototyping', 'User Research', 'HTML/CSS'],
+    experience: 5,
+    location: 'Bangalore, India',
+    domain: 'SaaS',
+    company: 'Freshworks',
+    education: 'NID Ahmedabad - MDes',
+    factors: { skill: 90, role: 85, experience: 78, domain: 82, trajectory: 88, referral: 45, risk: 8 },
+    finalScore: 0,
+    reasoning: [
+      'NID-trained designer with strong systematic design thinking',
+      'Built and maintained design system used across 5 products at Freshworks',
+      'User research expertise with proven track record of improving conversion by 35%',
+      'Strong portfolio showing B2B SaaS design excellence',
+    ],
+  },
+  {
+    id: '8',
+    name: 'David Kim',
+    role: 'Mobile Developer',
+    skills: ['React Native', 'Swift', 'Kotlin', 'Firebase', 'GraphQL', 'TypeScript'],
+    experience: 6,
+    location: 'Seoul, South Korea',
+    domain: 'Social Media',
+    company: 'LINE Corporation',
+    education: 'KAIST - BS CS',
+    factors: { skill: 84, role: 80, experience: 78, domain: 76, trajectory: 82, referral: 35, risk: 15 },
+    finalScore: 0,
+    reasoning: [
+      'Cross-platform mobile expertise with React Native and native development',
+      'Experience building features for 200M+ user base at LINE',
+      'Strong TypeScript skills for code-sharing between platforms',
+      'KAIST graduate with solid CS fundamentals',
+    ],
+  },
+  {
+    id: '9',
+    name: 'Lisa Anderson',
+    role: 'Security Engineer',
+    skills: ['Penetration Testing', 'SIEM', 'Python', 'Cloud Security', 'ISO 27001', 'SOC 2'],
+    experience: 9,
+    location: 'Austin, USA',
+    domain: 'Cybersecurity',
+    company: 'CrowdStrike',
+    education: 'Georgia Tech - MS InfoSec',
+    factors: { skill: 88, role: 86, experience: 90, domain: 92, trajectory: 80, referral: 60, risk: 5 },
+    finalScore: 0,
+    reasoning: [
+      'Deep cybersecurity expertise with CrowdStrike — industry leader',
+      'Compliance certifications (ISO 27001, SOC 2) for enterprise readiness',
+      'Hands-on pen testing combined with strategic security architecture',
+      'Georgia Tech MS with specialization in information security',
+    ],
+  },
+  {
+    id: '10',
+    name: 'Rahul Verma',
+    role: 'AI/ML Engineer',
+    skills: ['Python', 'PyTorch', 'NLP', 'LLMs', 'MLOps', 'FastAPI'],
+    experience: 4,
+    location: 'Delhi, India',
+    domain: 'AI/ML',
+    company: 'Ola',
+    education: 'IISc Bangalore - MTech AI',
+    factors: { skill: 90, role: 82, experience: 68, domain: 90, trajectory: 92, referral: 40, risk: 12 },
+    finalScore: 0,
+    reasoning: [
+      'Cutting-edge LLM and NLP expertise — published 3 papers',
+      'IISc MTech in AI with strong theoretical foundation',
+      'Built ML-powered recommendation system serving 50M+ users at Ola',
+      'Exceptional trajectory — promoted from intern to lead in 3 years',
+    ],
+  },
+  {
+    id: '11',
+    name: 'Emma Johnson',
+    role: 'Engineering Manager',
+    skills: ['People Management', 'Agile', 'System Design', 'Java', 'Stakeholder Management', 'OKRs'],
+    experience: 12,
+    location: 'Seattle, USA',
+    domain: 'Cloud Computing',
+    company: 'Amazon Web Services',
+    education: 'MIT - BS CS',
+    factors: { skill: 78, role: 90, experience: 95, domain: 85, trajectory: 88, referral: 75, risk: 8 },
+    finalScore: 0,
+    reasoning: [
+      'Proven engineering leadership at AWS managing 15+ engineers',
+      'Strong track record of delivering large-scale cloud infrastructure projects',
+      'MIT background with continued technical depth alongside management',
+      'High referral score from current Director-level connection',
+    ],
+  },
+  {
+    id: '12',
+    name: 'Vikram Singh',
+    role: 'Full Stack Developer',
+    skills: ['React', 'Node.js', 'MongoDB', 'Docker', 'Redis', 'Socket.io'],
+    experience: 3,
+    location: 'Pune, India',
+    domain: 'EdTech',
+    company: 'Byju\'s',
+    education: 'VIT - B.Tech CS',
+    factors: { skill: 78, role: 74, experience: 60, domain: 65, trajectory: 75, referral: 20, risk: 20 },
+    finalScore: 0,
+    reasoning: [
+      'Solid React/Node.js full-stack skills with production experience',
+      'EdTech experience with real-time features using Socket.io',
+      'Fast learner — shipped 3 major features in first year',
+      'Note: Higher risk score due to company instability at Byju\'s',
+    ],
+  },
+  {
+    id: '13',
+    name: 'Sophie Martin',
+    role: 'QA Lead',
+    skills: ['Selenium', 'Cypress', 'API Testing', 'Performance Testing', 'Python', 'CI/CD'],
+    experience: 7,
+    location: 'Berlin, Germany',
+    domain: 'Automotive',
+    company: 'BMW Digital',
+    education: 'TU Munich - MS Software Engineering',
+    factors: { skill: 82, role: 80, experience: 82, domain: 70, trajectory: 76, referral: 50, risk: 10 },
+    finalScore: 0,
+    reasoning: [
+      'Comprehensive QA expertise spanning UI, API, and performance testing',
+      'Led quality transformation at BMW Digital reducing defect rate by 60%',
+      'Strong automation background with Selenium and Cypress',
+      'German engineering discipline with TU Munich credentials',
+    ],
+  },
+  {
+    id: '14',
+    name: 'Aisha Khan',
+    role: 'Cloud Architect',
+    skills: ['AWS', 'Azure', 'Terraform', 'Kubernetes', 'Serverless', 'Cost Optimization'],
+    experience: 11,
+    location: 'Dubai, UAE',
+    domain: 'Government',
+    company: 'Accenture',
+    education: 'LUMS - BS CS',
+    factors: { skill: 88, role: 88, experience: 92, domain: 75, trajectory: 84, referral: 55, risk: 8 },
+    finalScore: 0,
+    reasoning: [
+      'Multi-cloud expertise (AWS + Azure) with enterprise architecture at Accenture',
+      'Government sector experience with security-first architecture principles',
+      'Proven cost optimization — saved clients $2M+ in cloud spend',
+      'Strong leadership presence with client-facing communication skills',
+    ],
+  },
+  {
+    id: '15',
+    name: 'Tom Nakamura',
+    role: 'Blockchain Developer',
+    skills: ['Solidity', 'Rust', 'Web3.js', 'Smart Contracts', 'DeFi', 'TypeScript'],
+    experience: 4,
+    location: 'Tokyo, Japan',
+    domain: 'Web3',
+    company: 'Astar Network',
+    education: 'University of Tokyo - MS CS',
+    factors: { skill: 86, role: 78, experience: 65, domain: 88, trajectory: 85, referral: 30, risk: 18 },
+    finalScore: 0,
+    reasoning: [
+      'Deep Solidity/Rust expertise with deployed smart contracts on mainnet',
+      'DeFi protocol development experience at Astar Network',
+      'Strong academic foundation from University of Tokyo',
+      'Note: Higher risk due to volatile Web3 market impacting career stability',
+    ],
+  },
+];
+
+// Quick filter function for demo
+export function filterCandidates(
+  candidates: RankedCandidate[],
+  filters: {
+    skills?: string[];
+    experience_min?: number | null;
+    experience_max?: number | null;
+    location?: string | null;
+    domain?: string | null;
+    role?: string | null;
+  }
+): RankedCandidate[] {
+  return candidates.filter(c => {
+    if (filters.skills && filters.skills.length > 0) {
+      const hasSkill = filters.skills.some(s =>
+        c.skills.some(cs => cs.toLowerCase().includes(s.toLowerCase()))
+      );
+      if (!hasSkill) return false;
+    }
+    if (filters.experience_min != null && c.experience < filters.experience_min) return false;
+    if (filters.experience_max != null && c.experience > filters.experience_max) return false;
+    if (filters.location && !c.location.toLowerCase().includes(filters.location.toLowerCase())) return false;
+    if (filters.domain && !c.domain.toLowerCase().includes(filters.domain.toLowerCase())) return false;
+    if (filters.role && !c.role.toLowerCase().includes(filters.role.toLowerCase())) return false;
+    return true;
+  });
+}
